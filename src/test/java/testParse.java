@@ -108,4 +108,171 @@ public class testParse
 
     }
 
+    @Test
+    public void countMilkTest()
+    {
+        //given
+        int expected = 6;
+
+        //when
+        int  actual = parse.countMilk();
+
+        //then
+        Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void countMilkPriceOneTest()
+    {
+        //given
+        int expected = 5;
+
+        //when
+        int  actual = parse.countMilkPriceOne();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countMilkPriceTwoTest()
+    {
+        //given
+        int expected = 1;
+
+        //when
+        int  actual = parse.countMilkPriceTwo();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countBreadAndPriceTest()
+    {
+        //given
+        int expected = 6;
+
+        //when
+        int  actual = parse.countBreadAndPrice();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countCookiesAndPriceTest()
+    {
+        //given
+        int expected = 8;
+
+        //when
+        int  actual = parse.countCookiesAndPrice();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countApplesTest()
+    {
+        //given
+        int expected = 8;
+
+        //when
+        int  actual = parse.countApples();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countApplesAndPriceOneTest()
+    {
+        //given
+        int expected = 2;
+
+        //when
+        int  actual = parse.countApplesAndPriceOne();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countApplesAndPriceTwoTest()
+    {
+        //given
+        int expected = 2;
+
+        //when
+        int  actual = parse.countApplesAndPriceTwo();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countErrorsTest()
+    {
+        //given
+        int expected = 4;
+
+        //when
+        int  actual = parse.countErrors();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void printMilkTest()
+    {
+        //given
+        String expected = "name:    Milk \t\t seen: 6 times\n" +
+                "============= \t \t =============\n" +
+                "Price: \t 3.23\t\t seen: 5 times\n" +
+                "-------------\t\t -------------\n" +
+                "Price: \t 1.23\t\t seen: 1 times\n";
+
+        //when
+        String actual =parse.printListMilk();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void printReceiptTest()
+    {
+        //given
+        String expected = "name:    Milk \t\t seen: 6 times\n" +
+                "============= \t \t =============\n" +
+                "Price: \t 3.23\t\t seen: 5 times\n" +
+                "-------------\t\t -------------\n" +
+                "Price: \t 1.23\t\t seen: 1 times\n" +
+                "name:   Bread \t\t seen: 6 times\n" +
+                "============= \t \t =============\n" +
+                "Price: \t 1.23\t\t seen: 6 times\n" +
+                "-------------\t\t -------------\n" +
+                "name: Cookies \t\t seen: 8 times\n" +
+                "============= \t \t =============\n" +
+                "Price: \t 2.25\t\t seen: 6 times\n" +
+                "-------------\t\t -------------\n" +
+                "name:  Apples \t\t seen: 4 times\n" +
+                "============= \t \t =============\n" +
+                "Price: \t 0.25\t\t seen: 2 times\n" +
+                "-------------\t\t -------------\n" +
+                "Price: \t 0.23\t\t seen: 2 times\n" +
+                "Errors         \t \t seen: 4 times";
+
+        //when
+        String actual =parse.printReceipt();
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+
 }
