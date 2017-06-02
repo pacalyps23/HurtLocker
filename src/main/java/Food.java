@@ -15,7 +15,6 @@ public class Food
     private String price;
     private String type;
     private String exp;
-    public static int error = 0;
 
     public Food(String name, String price, String type, String exp)
     {

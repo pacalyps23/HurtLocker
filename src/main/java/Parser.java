@@ -1,9 +1,8 @@
 import org.apache.commons.io.IOUtils;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class Parser
     {
         String delims = "[##]+";
 
-        String rawDataString = null;
+        String rawDataString = "";
         try
         {
             rawDataString = readRawDataToString(file);
@@ -92,114 +91,74 @@ public class Parser
         return foodArray;
     }
 
-    public int countMilk()
+    public int countItem(String itemName)
     {
-        List<Food> milkList = extractAll();
-        long numberOfMilk = milkList
+        List<Food> itemList = extractAll();
+        long numberOfItem = itemList
                 .stream()
-                .filter(p -> p.getName().matches("[M+]\\w{3}") && !p.getPrice().equals("error"))
+                .filter(p -> p.getName().equalsIgnoreCase(itemName))
+                .filter(p -> !p.getPrice().equals("error"))
                 .count();
-        return (int) numberOfMilk;
+        return (int) numberOfItem;
     }
 
-    public int countMilkPriceOne()
+
+    public int countItem(String itemName, String price)
     {
-        List<Food> milkList = extractAll();
-        long numberOfMilk = milkList
+        List<Food> itemList = extractAll();
+        long numberOfItem = itemList
                 .stream()
-                .filter(p -> p.getName().matches("[M+]\\w{3}") && p.getPrice().equals("3.23"))
+                .filter(p -> p.getName().equalsIgnoreCase(itemName))
+                .filter(p -> p.getPrice().equals(price))
                 .count();
-        return (int) numberOfMilk;
+        return (int) numberOfItem;
     }
 
-    public int countMilkPriceTwo()
+    public int countCookies(String itemName)
     {
-        List<Food> milkList = extractAll();
-        long numberOfMilk = milkList
+        List<Food> itemList = extractAll();
+        long numberOfItem = itemList
                 .stream()
-                .filter(p -> p.getName().matches("[Mm+]\\w{3}") && p.getPrice().equals("1.23"))
+                .filter(p -> p.getName().matches(regexCookie(itemName)))
                 .count();
-        return (int) numberOfMilk;
-    }
-
-    public int countBreadAndPrice()
-    {
-        List<Food> breadList = extractAll();
-        long numberOfBread = breadList
-                .stream()
-                .filter(p -> p.getName().matches("[Bb]\\w{4}") && p.getPrice().equals("1.23"))
-                .count();
-        return (int) numberOfBread;
-    }
-
-    public int countCookiesAndPrice()
-    {
-        List<Food> breadList = extractAll();
-        long numberOfBread = breadList
-                .stream()
-                .filter(p -> p.getName().matches("[Cc+]\\w{6}") && p.getPrice().equals("2.25"))
-                .count();
-        return (int) numberOfBread;
-    }
-
-    public int countApples()
-    {
-        List<Food> breadList = extractAll();
-        long numberOfBread = breadList
-                .stream()
-                .filter(p -> p.getName().matches("[Aa+]\\w{5}"))
-                .count();
-        return (int) numberOfBread;
-    }
-
-    public int countApplesAndPriceOne()
-    {
-        List<Food> breadList = extractAll();
-        long numberOfBread = breadList
-                .stream()
-                .filter(p -> p.getName().matches("[Aa+]\\w{5}") && p.getPrice().equals("0.25"))
-                .count();
-        return (int) numberOfBread;
-    }
-
-    public int countApplesAndPriceTwo()
-    {
-        List<Food> breadList = extractAll();
-        long numberOfBread = breadList
-                .stream()
-                .filter(p -> p.getName().matches("[Aa+]\\w{5}") && p.getPrice().equals("0.23"))
-                .count();
-        return (int) numberOfBread;
+        return (int) numberOfItem;
     }
 
     public int countErrors()
     {
-        List<Food> breadList = extractAll();
-        long numberOfBread = breadList
+        List<Food> itemList = extractAll();
+        long numberOfItem = itemList
                 .stream()
-                .filter(p -> p.getName().equals("error") || p.getPrice().equals("error"))
+                .filter(p -> p.getName().equalsIgnoreCase("error")
+                        || p.getPrice().equalsIgnoreCase("error"))
                 .count();
-        return (int) numberOfBread;
+        return (int) numberOfItem;
     }
+
+    private String regexCookie(String itemName)
+    {
+        return "[Cc]\\w{6}";
+    }
+
 
     private static String border = "============= \t \t =============";
     private static String border2 = "-------------\t\t -------------";
     public String printListMilk()
     {
-        String output = String.format("name:    Milk \t\t seen: %d times\n", countMilk());
+        String output = String.format("name:    Milk \t\t seen: %d times\n", countItem("milk"));
         output += border + "\n";
-        output += String.format("Price: \t 3.23\t\t seen: %d times\n", countMilkPriceOne());
+        output += String.format("Price: \t 3.23\t\t seen: %d times\n", countItem("milk", "3.23"));
         output += border2 + "\n";
-        output += String.format("Price: \t 1.23\t\t seen: %d times\n", countMilkPriceTwo());
+        output += String.format("Price: \t 1.23\t\t seen: %d times\n", countItem("milk", "1.23"));
 
         return output;
     }
 
     public String printListBread()
     {
-        String output = String.format("name:   Bread \t\t seen: %d times\n", countBreadAndPrice());
+        String output = String.format("name:   Bread \t\t seen: %d times\n", countItem("bread"));
         output += border + "\n";
-        output += String.format("Price: \t 1.23\t\t seen: %d times\n", countBreadAndPrice());
+        output += String.format("Price: \t 1.23\t\t seen: %d times\n", countItem("bread", "1.23"));
         output += border2 + "\n";
 
         return output;
@@ -207,9 +166,9 @@ public class Parser
 
     public String printListCookies()
     {
-        String output = String.format("name: Cookies \t\t seen: %d times\n", countCookiesAndPrice());
+        String output = String.format("name: Cookies \t\t seen: %d times\n", countCookies("cookies"));
         output += border + "\n";
-        output += String.format("Price: \t 2.25\t\t seen: %d times\n", countBreadAndPrice());
+        output += String.format("Price: \t 2.25\t\t seen: %d times\n", countCookies("cookies"));
         output += border2 + "\n";
 
         return output;
@@ -217,11 +176,11 @@ public class Parser
 
     public String printListApples()
     {
-        String output = String.format("name:  Apples \t\t seen: %d times\n", countApples());
+        String output = String.format("name:  Apples \t\t seen: %d times\n", countItem("apples"));
         output += border + "\n";
-        output += String.format("Price: \t 0.25\t\t seen: %d times\n", countApplesAndPriceOne());
+        output += String.format("Price: \t 0.25\t\t seen: %d times\n", countItem("apples", "0.25"));
         output += border2 + "\n";
-        output += String.format("Price: \t 0.23\t\t seen: %d times\n", countApplesAndPriceTwo());
+        output += String.format("Price: \t 0.23\t\t seen: %d times\n", countItem("apples", "0.23"));
 
         return output;
     }
@@ -236,6 +195,20 @@ public class Parser
     {
         return printListMilk() + printListBread() +
         printListCookies() + printListApples() + printErrors();
+    }
+
+    public void printToFile(String file)
+    {
+        PrintWriter out = null;
+        try
+        {
+            out = new PrintWriter(new FileWriter(file));
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        out.println(printReceipt());
+        out.close();
     }
 
 }

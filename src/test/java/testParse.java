@@ -109,27 +109,28 @@ public class testParse
     }
 
     @Test
-    public void countMilkTest()
+    public void countItemTest()
     {
         //given
         int expected = 6;
 
         //when
-        int  actual = parse.countMilk();
+        int  actual = parse.countItem("milk");
 
         //then
         Assert.assertEquals(expected, actual);
 
     }
 
+
     @Test
-    public void countMilkPriceOneTest()
+    public void countItemPriceOneTest()
     {
         //given
         int expected = 5;
 
         //when
-        int  actual = parse.countMilkPriceOne();
+        int  actual = parse.countItem("milk", "3.23");
 
         //then
         Assert.assertEquals(expected, actual);
@@ -142,7 +143,7 @@ public class testParse
         int expected = 1;
 
         //when
-        int  actual = parse.countMilkPriceTwo();
+        int  actual = parse.countItem("milk", "1.23");
 
         //then
         Assert.assertEquals(expected, actual);
@@ -155,7 +156,7 @@ public class testParse
         int expected = 6;
 
         //when
-        int  actual = parse.countBreadAndPrice();
+        int  actual = parse.countItem("bread", "1.23");
 
         //then
         Assert.assertEquals(expected, actual);
@@ -168,7 +169,7 @@ public class testParse
         int expected = 8;
 
         //when
-        int  actual = parse.countCookiesAndPrice();
+        int  actual = parse.countCookies("cookies");
 
         //then
         Assert.assertEquals(expected, actual);
@@ -178,10 +179,10 @@ public class testParse
     public void countApplesTest()
     {
         //given
-        int expected = 8;
+        int expected = 4;
 
         //when
-        int  actual = parse.countApples();
+        int  actual = parse.countItem("apples");
 
         //then
         Assert.assertEquals(expected, actual);
@@ -194,7 +195,7 @@ public class testParse
         int expected = 2;
 
         //when
-        int  actual = parse.countApplesAndPriceOne();
+        int  actual = parse.countItem("apples", "0.25");
 
         //then
         Assert.assertEquals(expected, actual);
@@ -207,7 +208,7 @@ public class testParse
         int expected = 2;
 
         //when
-        int  actual = parse.countApplesAndPriceTwo();
+        int  actual = parse.countItem("apples", "0.23");
 
         //then
         Assert.assertEquals(expected, actual);
@@ -258,7 +259,7 @@ public class testParse
                 "-------------\t\t -------------\n" +
                 "name: Cookies \t\t seen: 8 times\n" +
                 "============= \t \t =============\n" +
-                "Price: \t 2.25\t\t seen: 6 times\n" +
+                "Price: \t 2.25\t\t seen: 8 times\n" +
                 "-------------\t\t -------------\n" +
                 "name:  Apples \t\t seen: 4 times\n" +
                 "============= \t \t =============\n" +
